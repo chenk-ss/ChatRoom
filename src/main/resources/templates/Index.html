@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>chat room</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous" type="text/javascript"></script>
+    <script type="text/javascript">
+        var socket;
+        window.setInterval(function () { //每隔5秒钟发送一次心跳，避免websocket连接因超时而自动断开
+            var ping = "HeartBeatCheck";
+            socket.send(ping);
+        }, 60000);
+
+        if (typeof (WebSocket) == "undefined") {
+            console.log("您的浏览器不支持WebSocket");
+        } else {
+            console.log("您的浏览器支持WebSocket");
+            //实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接
+            socket = new WebSocket("ws://192.168.191.1:8080/websocket/1");
+            //打开事件
+            socket.onopen = function () {
+                console.log("Socket 已打开");
+            };
+            //获得消息事件
+            socket.onmessage = function (msg) {
+                var message = msg.data;
+                console.log(message);
+                if (msg.data != "HeartBeatCheck" && msg.data != "连接成功") {
+                    var json = eval('(' + msg.data + ')');
+                    console.log("message:" + json);
+                    document.getElementById("main").innerHTML = (new Date()).format('yyyy-MM-dd hh:mm:ss') + "&nbsp;&nbsp;" + json.userName + "&nbsp;&nbsp;:&nbsp;&nbsp;" + json.message + "<br/>" + document.getElementById("main").innerHTML + "</tr>";
+                    document.getElementById("sendMessage").value = "";
+                }
+                //发现消息进入    开始处理前端触发逻辑
+            };
+            //关闭事件
+            socket.onclose = function () {
+                console.log("Socket已关闭");
+            };
+            //发生了错误事件
+            socket.onerror = function () {
+                //此时可以尝试刷新页面
+            }
+        }
+
+        /**
+         * 时间格式化
+         * @param fmt
+         * @returns {string | void}
+         */
+        Date.prototype.format = function (fmt) {
+            var o = {
+                "y+": this.getFullYear, //年
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds() //秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+    </script>
+</head>
+<body>
+<p style="font-size: 20px">烤汤圆的公共聊天房</p>
+我的名字：<br>
+<input type="text" id="userName">目前还没有登录功能，先自己填写名字吧！<br><br>
+<input type="text" id="sendMessage">
+<input type="button" value="发送" onclick="send()">
+<p id="main"/>
+<script>
+    var host = "http://192.168.191.1:8080";
+
+    function send(data) {
+        var message = document.getElementById("sendMessage").value;
+        var userName = document.getElementById("userName").value;
+        $.ajax({
+            async: false,
+            type: 'get',
+            url: host + '/send?userName=' + userName + "&message=" + message,
+            success: function (data) {
+                console.log("发送成功");
+            }
+        })
+    }
+</script>
+</body>
+</html>
