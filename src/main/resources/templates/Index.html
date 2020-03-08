@@ -9,7 +9,7 @@
             crossorigin="anonymous" type="text/javascript"></script>
     <script type="text/javascript">
         var socket;
-        window.setInterval(function () { //每隔5秒钟发送一次心跳，避免websocket连接因超时而自动断开
+        window.setInterval(function () { //每隔60秒钟发送一次心跳，避免websocket连接因超时而自动断开
             var ping = "HeartBeatCheck";
             socket.send(ping);
         }, 60000);
@@ -28,10 +28,13 @@
             socket.onmessage = function (msg) {
                 var message = msg.data;
                 console.log(message);
-                if (msg.data != "HeartBeatCheck" && msg.data != "连接成功") {
+                if(msg.data.split(":")[0]=="num"){
+                    document.getElementById("onlineNum").innerHTML = "在线人数:"+msg.data.split(":")[1];
+                }
+                else if (msg.data != "HeartBeatCheck" && msg.data != "连接成功") {
                     var json = eval('(' + msg.data + ')');
                     console.log("message:" + json);
-                    document.getElementById("main").innerHTML = (new Date()).format('yyyy-MM-dd hh:mm:ss') + "&nbsp;&nbsp;" + json.userName + "&nbsp;&nbsp;:&nbsp;&nbsp;" + json.message + "<br/>" + document.getElementById("main").innerHTML + "</tr>";
+                    document.getElementById("main").innerHTML = (new Date(json.createTime)).format("yyyy-MM-dd hh:mm:ss") + "&nbsp;&nbsp;" + json.userName + "&nbsp;&nbsp;:&nbsp;&nbsp;" + json.message + "<br/>" + document.getElementById("main").innerHTML;
                     document.getElementById("sendMessage").value = "";
                 }
                 //发现消息进入    开始处理前端触发逻辑
@@ -68,14 +71,24 @@
     </script>
 </head>
 <body>
-<p style="font-size: 20px">烤汤圆的公共聊天房</p>
+<p style="font-size: 20px">烤汤圆的公共聊天房(目前不支持表情，包括输入法自带表情)</p>
+<p id="onlineNum"></p>
 我的名字：<br>
 <input type="text" id="userName">目前还没有登录功能，先自己填写名字吧！<br><br>
 <input type="text" id="sendMessage">
 <input type="button" value="发送" onclick="send()">
 <p id="main"/>
+<!--<p id="history"></p>-->
+<input type="button" value="查看历史记录" onclick="queryhistory()">
+<!--<table id="msgtable">-->
+<!--        <tr th:each="entity:${messages}">-->
+<!--                <p th:text="${entity.getCreateTime()}"></p>-->
+<!--        </tr>-->
+<!--</table>-->
 <script>
     var host = "http://192.168.191.1:8080";
+    var page = 0;
+    var limit = 10;
 
     function send(data) {
         var message = document.getElementById("sendMessage").value;
@@ -86,6 +99,24 @@
             url: host + '/send?userName=' + userName + "&message=" + message,
             success: function (data) {
                 console.log("发送成功");
+            }
+        })
+    }
+
+    function queryhistory(data) {
+        $.ajax({
+            async: false,
+            type: 'get',
+            url: host + '/query/history',
+            success: function (data) {
+                console.log(data.valueOf("message"));
+                var list = data.data;
+                console.log(list);
+                var innerHtml = "";
+                for (var i=0;i<list.length;i++) {
+                    innerHtml += (new Date(list[i].createTime)).format("yyyy-MM-dd hh:mm:ss") + "&nbsp;&nbsp;" + list[i].userName + "&nbsp;&nbsp;:&nbsp;&nbsp;" + list[i].message + "<br/>";
+                }
+                document.getElementById("main").innerHTML =innerHtml;
             }
         })
     }
