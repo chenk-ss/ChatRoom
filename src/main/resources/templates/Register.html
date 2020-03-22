@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <script type="text/javascript" th:src="@{/static/js/function.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous" type="text/javascript"></script>
+    <script>
+        function register(data) {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var passwordCheck = document.getElementById("passwordCheck").value;
+            if (password != passwordCheck) {
+                alert("两次输入的密码不一致");
+                return;
+            }
+            $.ajax({
+                async: false,
+                type: 'post',
+                url: API() + '/user/register',
+                data: {
+                    userName: username,
+                    password: SHA256(password)
+                },
+                success: function (data) {
+                    if (!data.success) {
+                        alert(data.message);
+                    } else {
+                        window.location.href = API() + '/?path=Login';
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<table>
+    <tr>
+        <td>用户名：</td>
+        <td><input id="username" type="text"></td>
+    </tr>
+    <tr>
+        <td>密码</td>
+        <td><input id="password" type="password"></td>
+    </tr>
+    <tr>
+        <td>再次输入密码</td>
+        <td><input id="passwordCheck" type="password"></td>
+    </tr>
+</table>
+<input type="button" value="注册" onclick="register()">
+</body>
+</html>
