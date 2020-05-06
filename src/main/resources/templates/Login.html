@@ -7,58 +7,22 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous" type="text/javascript"></script>
-    <script>
-        function login(data) {
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
-            $.ajax({
-                async: false,
-                type: 'get',
-                url: API() + '/user/login',
-                data: {
-                    userName: username,
-                    password: SHA256(password)
-                },
-                success: function (data) {
-                    if (!data.success) {
-                        alert(data.message);
-                    } else {
-                        sessionStorage.setItem('token', data.data);
-                        console.log(sessionStorage.getItem('token'));
-                        window.location.href = API();
-                    }
-                }
-            })
-        }
-
-        function register(data) {
-            $.ajax({
-                async: false,
-                type: 'get',
-                url: '',
-                success: function (data) {
-                    window.location.href = API() + '/?path=Register';
-                }
-            })
-        }
-    </script>
+    <script type="text/javascript" th:src="@{/static/js/login.js}"></script>
 </head>
 <body>
-<table>
-    <tr>
-        <td>用户名：</td>
-        <td><input id="username" type="text"></td>
-    </tr>
-    <tr>
-        <td>密码</td>
-        <td><input id="password" type="password"></td>
-    </tr>
-</table>
-<!--用户名：-->
-<!--<br>-->
-<!--密&nbsp;&nbsp;&nbsp;&nbsp;码：-->
-<!--<br>-->
-<input type="button" value="注册" onclick="register()">
-<input type="button" value="登录" onclick="login()">
+<div style="margin: auto;">
+    <table style="margin: auto;">
+        <tr>
+            <td>用户名：</td>
+            <td><input id="username" type="text"></td>
+        </tr>
+        <tr>
+            <td>密码</td>
+            <td><input id="password" type="password"></td>
+        </tr>
+    </table>
+    <input type="button" value="注册" onclick="register()">
+    <input type="button" value="登录" onclick="login()">
+</div>
 </body>
 </html>

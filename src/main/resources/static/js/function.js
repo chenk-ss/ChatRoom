@@ -2,7 +2,7 @@ function API() {
     return "http://"+IP();
 }
 function IP() {
-    return "192.168.191.1:8080";
+    return "192.168.40.185:8080";
 }
 function getToken() {
     return sessionStorage.getItem("token");
