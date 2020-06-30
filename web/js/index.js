@@ -9,7 +9,7 @@ if (typeof (WebSocket) == "undefined") {
 } else {
     console.log("您的浏览器支持WebSocket");
     //实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接
-    socket = new WebSocket("ws://" + IP() + "/websocket/1");
+    socket = new WebSocket("ws://" + WEBSOCKETIP() + "/websocket/1");
     //打开事件
     socket.onopen = function () {
         console.log("Socket 已打开");
@@ -91,7 +91,7 @@ function queryhistory(data) {
                 window.location.href = API() + '/?path=Login';
                 return;
             }
-            console.log(data.valueOf("message"));
+            // console.log(data.valueOf("message"));
             var list = data.data;
             console.log(list);
             var innerHtml = "";
