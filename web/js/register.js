@@ -28,7 +28,7 @@ function register(data) {
             if (!data.success) {
                 alert(data.message);
             } else {
-                window.location.href = API() + '/?path=Login';
+                window.location.href = 'Login.html';
             }
         }
     })
