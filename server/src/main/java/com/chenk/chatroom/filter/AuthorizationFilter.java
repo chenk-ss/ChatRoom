@@ -90,16 +90,16 @@ public class AuthorizationFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             //设置Header信息
-//            response.setHeader("Content-Type", "application/json;charset=UTF-8");
-//            JsonResult result = new JsonResult();
-//            result.setMessage("用户认证失败，错误信息：" + error);
-//            result.setSuccess(false);
-//            ObjectMapper mapper = new ObjectMapper();
-//            String errorString = mapper.writeValueAsString(result);
-//            PrintWriter out = response.getWriter();
-//            out.print(errorString);
-//            out.close();
-            response.sendRedirect("/?path=Login");
+            response.setHeader("Content-Type", "application/json;charset=UTF-8");
+            JsonResult result = new JsonResult();
+            result.setMessage("Unauthorized");
+            result.setSuccess(false);
+            ObjectMapper mapper = new ObjectMapper();
+            String errorString = mapper.writeValueAsString(result);
+            PrintWriter out = response.getWriter();
+            out.print(errorString);
+            out.close();
+//            response.sendRedirect("/?path=Login");
 //            if ("".equals(request.getParameter("path")) || "null".equals(request.getParameter("path"))) {
 //                response.sendRedirect("/?path=Login");
 //            } else {

@@ -23,7 +23,7 @@ public class UserController {
     @Resource
     private RedisTemplate redisTemplate;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public JsonResult<String> getToken(@RequestParam("userName") String userName, @RequestParam("password") String password) {
         JsonResult<String> result = new JsonResult<String>();
         System.out.println("userName:" + userName + "|password:" + password);
