@@ -22,6 +22,30 @@ function postAjax(url, data, callback) {
     });
 }
 
+function getAjax(url, data, callback) {
+    $.ajax({
+        url: url,
+        data: data,
+        type: "GET",
+        contentType: "application/json",
+        headers: { Token: getToken() },
+        success: function (ret) {
+            if (callback) {
+                callback(ret);
+            }
+        },
+        error: function ( err ) {
+            if( err.responseJSON.message == 'Unauthorized' ){
+                window.location.href = "../Login.html";
+            }else{
+                if (callback) {
+                    callback(err);
+                }
+            }
+        }
+    });
+}
+
 //时间格式化函数，此处仅针对yyyy-MM-dd的格式进行格式化
 function dateFormat(time) {
     var date = new Date(time);

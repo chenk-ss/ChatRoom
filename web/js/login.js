@@ -3,7 +3,7 @@ function login(data) {
     var password = document.getElementById("password").value;
     $.ajax({
         async: false,
-        type: 'get',
+        type: 'POST',
         url: API() + '/user/login',
         data: {
             userName: username,
