@@ -12,21 +12,27 @@ import java.util.Date;
 @JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 public class MessageBean {
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     private String id;
 
-    @Column(name = "userid")
+    @Column(name = "USER_ID")
     private String userId;
 
-    @Column(name = "username")
+    @Column(name = "USER_NAME")
     private String userName;
 
-    @Column(name = "ip")
+    @Column(name = "IP")
     private String ip;
 
-    @Column(name = "message")
+    @Column(name = "MESSAGE")
     private String message;
 
-    @Column(name = "createtime")
+    @Column(name = "CREATE_TIME")
     private Date createTime;
+
+    @Column(name = "TYPE")
+    private String type;
+
+    @Column(name = "GROUP_ID")
+    private Date groupId;
 }

@@ -15,24 +15,24 @@ import java.util.Date;
 @JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 public class UserBean {
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     private String id;
 
-    @Column(name = "username")
+    @Column(name = "USER_NAME")
     private String userName;
 
-    @Column(name = "password")
+    @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "realname")
+    @Column(name = "REAL_NAME")
     private String realName;
 
-    @Column(name = "email")
+    @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "createtime")
+    @Column(name = "CREATE_TIME")
     private Date createTime;
 
-    @Column(name = "status")
+    @Column(name = "STATUS")
     private int status;
 }
