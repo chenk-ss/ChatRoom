@@ -3,7 +3,7 @@ function login(data) {
     var password = document.getElementById("password").value;
     $.ajax({
         async: false,
-        type: 'get',
+        type: 'POST',
         url: API() + '/user/login',
         data: {
             userName: username,
@@ -15,19 +15,12 @@ function login(data) {
             } else {
                 sessionStorage.setItem('token', data.data);
                 console.log(sessionStorage.getItem('token'));
-                window.location.href = API();
+                window.location.href = "Index.html";
             }
         }
     })
 }
 
 function register(data) {
-    $.ajax({
-        async: false,
-        type: 'get',
-        url: '',
-        success: function (data) {
-            window.location.href = API() + '/?path=Register';
-        }
-    })
+    window.location.href = 'Register.html';
 }

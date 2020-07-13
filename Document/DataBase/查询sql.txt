@@ -1,0 +1,5 @@
+select m.*, gu.*, u.*
+from tb_message m
+LEFT JOIN tb_group_member gu on m.GROUP_ID = gu.GROUP_ID
+LEFT JOIN tb_user u on (u.ID = m.RECEIVER_ID or u.ID = gu.USER_ID)
+where u.ID = ''

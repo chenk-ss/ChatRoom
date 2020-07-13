@@ -1,11 +1,11 @@
 function API() {
-    return "http://"+IP()+"";
+    return "http://"+IP()+"/chat";
 }
 function IP() {
-    return "192.168.191.1:8080";
+    return "localhost:80";
 }
 function WEBSOCKETIP() {
-    return "192.168.191.1:8080";
+    return "localhost:8880";
 }
 function getToken() {
     return sessionStorage.getItem("token");

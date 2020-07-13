@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.SortedMap;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -45,6 +43,8 @@ public class MessageServiceImpl implements MessageService {
         entity.setCreateTime(bean.getCreateTime());
         entity.setIp(bean.getIp());
         entity.setMessage(bean.getMessage());
+        entity.setType(bean.getType());
+        entity.setGroupId(bean.getGroupId());
         return entity;
     }
 

@@ -2,7 +2,6 @@ package com.chenk.chatroom.controller;
 
 import com.chenk.chatroom.pojo.bean.MessageBean;
 import com.chenk.chatroom.pojo.entity.Message;
-import com.chenk.chatroom.pojo.param.MessageParam;
 import com.chenk.chatroom.result.JsonResult;
 import com.chenk.chatroom.service.MessageService;
 import com.chenk.chatroom.socket.WebSocketServer;
@@ -11,7 +10,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,7 +46,7 @@ public class MessageController {
 
     @ResponseBody
     @RequestMapping(value = "/send")
-    public JsonResult<String> sendMessage(@RequestParam("message") String message) {
+    public JsonResult<String> sendMessage(@RequestParam("message") String message, @RequestParam("friendId") String friendId) {
         JsonResult<String> result = new JsonResult<>();
         MessageBean bean = new MessageBean();
         bean.setId(UUID.randomUUID().toString());
@@ -57,7 +55,8 @@ public class MessageController {
         bean.setUserName((String) redisTemplate.opsForValue().get("TOKEN:" + request.getHeader("Token") + ",USERNAME:"));
         messageService.add(bean);
         try {
-            WebSocketServer.sendInfo(GSON.toJson(bean), "1");
+//            WebSocketServer.sendInfo(GSON.toJson(bean), "1");
+            WebSocketServer.sendInfo(GSON.toJson(bean), friendId);
             result.setMessage("发送成功");
             result.setSuccess(true);
         } catch (IOException e) {
@@ -67,5 +66,12 @@ public class MessageController {
         } finally {
             return result;
         }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/send")
+    public JsonResult<String> sendMessageToGroup(@RequestParam("message") String message, @RequestParam("groupId") String groupId) {
+
+        return null;
     }
 }

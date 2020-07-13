@@ -23,7 +23,7 @@ if (typeof (WebSocket) == "undefined") {
         } else if (msg.data != "HeartBeatCheck" && msg.data != "连接成功") {
             var json = eval('(' + msg.data + ')');
             // console.log("message:" + json);
-            document.getElementById("main").innerHTML = (new Date(json.createTime)).format("yyyy-MM-dd hh:mm:ss") + "&nbsp;&nbsp;" + json.userName + "&nbsp;&nbsp;:&nbsp;&nbsp;" + json.message + "<br/>" + document.getElementById("main").innerHTML;
+            document.getElementById("main").innerHTML = dateFormat(new Date(json.createTime)) + "&nbsp;&nbsp;" + json.userName + "&nbsp;&nbsp;:&nbsp;&nbsp;" + json.message + "<br/>" + document.getElementById("main").innerHTML;
             document.getElementById("sendMessage").value = "";
         }
         //发现消息进入    开始处理前端触发逻辑
@@ -79,37 +79,20 @@ function send(data) {
 }
 
 function queryhistory(data) {
-    $.ajax({
-        async: false,
-        type: 'get',
-        headers: {
-            "Token": getToken()
-        },
-        url: API() + '/query/history',
-        success: function (data) {
-            if (!data.success) {
-                window.location.href = API() + '/?path=Login';
-                return;
-            }
-            // console.log(data.valueOf("message"));
-            var list = data.data;
+    let dataRead = {};
+    postAjax(API() + '/query/history', JSON.stringify(dataRead), function (ret, err) {
+        if (ret && ret.success === true) {
+            var list = ret.data;
             console.log(list);
             var innerHtml = "";
             for (var i = 0; i < list.length; i++) {
-                innerHtml += (new Date(list[i].createTime)).format("yyyy-MM-dd hh:mm:ss") + "&nbsp;&nbsp;" + list[i].userName + "&nbsp;&nbsp;:&nbsp;&nbsp;" + list[i].message + "<br/>";
+                innerHtml += dateFormat(new Date(list[i].createTime)) + "&nbsp;&nbsp;" + list[i].userName + "&nbsp;&nbsp;:&nbsp;&nbsp;" + list[i].message + "<br/>";
             }
             document.getElementById("main").innerHTML = innerHtml;
         }
-    })
+    });
 }
 
 function login(data) {
-    $.ajax({
-        async: false,
-        type: 'get',
-        url: '',
-        success: function (data) {
-            window.location.href = API() + '/?path=Login';
-        }
-    })
+    window.location.href = 'Login.html';
 }

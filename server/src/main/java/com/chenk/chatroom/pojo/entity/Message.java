@@ -2,6 +2,7 @@ package com.chenk.chatroom.pojo.entity;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import java.util.Date;
 
 @Data
@@ -17,4 +18,10 @@ public class Message {
     private String message;
 
     private Date createTime;
+
+    private String type;
+
+    private String groupId;
+
+    private String receiverId;
 }

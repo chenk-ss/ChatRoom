@@ -16,6 +16,12 @@ function register(data) {
         alert("两次输入的密码不一致");
         return;
     }
+    let dataRead = {
+        userName: username,
+        password: SHA256(password)
+    };
+    postAjax(API() + '/query/history', JSON.stringify(dataRead), function (ret, err) {
+        if (ret && ret.success === true) {
     $.ajax({
         async: false,
         type: 'post',
@@ -28,7 +34,7 @@ function register(data) {
             if (!data.success) {
                 alert(data.message);
             } else {
-                window.location.href = API() + '/?path=Login';
+                window.location.href = 'Login.html';
             }
         }
     })
