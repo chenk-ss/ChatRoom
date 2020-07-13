@@ -34,5 +34,8 @@ public class MessageBean {
     private String type;
 
     @Column(name = "GROUP_ID")
-    private Date groupId;
+    private String groupId;
+
+    @Column(name = "RECEIVER_ID")
+    private String receiverId;
 }

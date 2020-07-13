@@ -21,5 +21,7 @@ public class Message {
 
     private String type;
 
-    private Date groupId;
+    private String groupId;
+
+    private String receiverId;
 }

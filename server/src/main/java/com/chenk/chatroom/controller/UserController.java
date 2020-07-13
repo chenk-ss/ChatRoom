@@ -6,10 +6,12 @@ import com.chenk.chatroom.result.JsonResult;
 import com.chenk.chatroom.service.UserService;
 import com.chenk.chatroom.util.SHA256;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -23,9 +25,15 @@ public class UserController {
     @Resource
     private RedisTemplate redisTemplate;
 
+    /**
+     *  用户登录
+     * @param userName
+     * @param password
+     * @return
+     */
     @PostMapping("/login")
     public JsonResult<String> getToken(@RequestParam("userName") String userName, @RequestParam("password") String password) {
-        JsonResult<String> result = new JsonResult<String>();
+        JsonResult<String> result = new JsonResult<>();
         System.out.println("userName:" + userName + "|password:" + password);
         User user = userService.queryUserByUserName(userName);
         if (user == null) {
@@ -52,9 +60,15 @@ public class UserController {
         return result;
     }
 
+    /**
+     *  注册用户
+     * @param userName
+     * @param password
+     * @return
+     */
     @PostMapping("/register")
     public JsonResult<String> register(@RequestParam("userName") String userName, @RequestParam("password") String password) {
-        JsonResult<String> result = new JsonResult<String>();
+        JsonResult<String> result = new JsonResult<>();
         System.out.println("userName:" + userName + "|password:" + password);
         User user = userService.queryUserByUserName(userName);
         if (user != null) {
@@ -72,5 +86,71 @@ public class UserController {
         result.setSuccess(b);
         result.setMessage(b ? "新增成功" : "新增失败");
         return result;
+    }
+
+    /**
+     *  查询好友
+     * @param friendCode
+     * @return
+     */
+    @PostMapping("queryFriend")
+    public JsonResult<User> queryFriend(@RequestParam("friendCode") String friendCode){
+
+        return null;
+    }
+
+    /**
+     *  添加好友
+     * @param friendId
+     * @return
+     */
+    @PostMapping("addFriend")
+    public JsonResult<String> addFriend(@RequestParam("friendId") String friendId){
+
+        return null;
+    }
+
+    /**
+     *  删除好友
+     * @param friendId
+     * @return
+     */
+    @PostMapping("removeFriend")
+    public JsonResult<String> removeFriend(@RequestParam("friendId") String friendId){
+
+        return null;
+    }
+
+    /**
+     *  加入群组
+     * @param name
+     * @return
+     */
+    @PostMapping("createGroup")
+    public JsonResult<String> createGroup(@RequestParam("name") String name){
+
+        return null;
+    }
+
+    /**
+     *  加入群组
+     * @param groupId
+     * @return
+     */
+    @PostMapping("joinGroup")
+    public JsonResult<String> joinGroup(@RequestParam("groupId") String groupId){
+
+        return null;
+    }
+
+    /**
+     *  退出群组
+     * @param groupId
+     * @return
+     */
+    @PostMapping("leaveGroup")
+    public JsonResult<String> leaveGroup(@RequestParam("groupId") String groupId){
+
+        return null;
     }
 }
