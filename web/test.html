@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <link rel="stylesheet" href="css/test.css">
+</head>
+<body style="text-align:center">
+Test.html
+<div id="wrapper" style="margin: 0 auto;">
+    <div id="test1" class="leftDiv">
+        <ul>
+            <li v-for="(item,index) in mylist">
+                {{index}}
+            </li>
+        </ul>
+    </div>
+    <div class="midDiv">
+        <div class="messageDiv">
+            <p v-for="(item,index) in mylist" style="display: flex">
+                {{item.name}}:{{item.message}}<br>
+            </p>
+        </div>
+        <div id="div3" class="sendDiv">
+            <textarea id="inputMsg" placeholder="message" v-model="submitMessage"></textarea>
+            <input class="submit" type="button" @click="submit()" value="submit">
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script type="text/javascript" src="js/test.js"></script>
+</body>
+</html>
