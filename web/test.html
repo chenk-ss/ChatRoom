@@ -17,8 +17,9 @@ Test.html
     </div>
     <div class="midDiv">
         <div class="messageDiv">
-            <p v-for="(item,index) in mylist" style="display: flex">
-                {{item.name}}:{{item.message}}<br>
+            <p v-for="(item,index) in mylist" style="display: flex;">
+            <a>{{item.name}}:</a>
+            <a><br><br>{{item.message}}</a>
             </p>
         </div>
         <div id="div3" class="sendDiv">

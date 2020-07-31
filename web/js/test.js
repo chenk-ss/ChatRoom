@@ -15,7 +15,6 @@ var home = new Vue({
             var _self = this;
             var messages = [];
             messages.push('{"name": "chen1", "message": "test1"}');
-            messages.push('{"name": "chen1", "message": "test2\\n\\t你在说啥?\\n\\thello world!"}');
             messages.push('{"name": "chen1", "message": "test3"}');
             messages.push('{"name": "chen1", "message": "test3"}');
             messages.push('{"name": "chen1", "message": "test3"}');
