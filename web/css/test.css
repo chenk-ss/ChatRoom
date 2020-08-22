@@ -1,7 +1,7 @@
 .messageDiv {
     width: 800px;
     height: 500px;
-    border: 1px solid black;
+    border: 0px solid black;
     margin: 0 auto;
     overflow-y: auto;
 }
@@ -9,7 +9,7 @@
 .leftDiv {
     width: 400px;
     height: 535px;
-    border: 1px solid black;
+    border: 0px solid black;
     margin: 0 auto;
     float: left;
     overflow: auto;
@@ -17,6 +17,7 @@
 
 .midDiv {
     float: left;
+    margin-left: 50px;
 }
 
 #msgs {
@@ -28,7 +29,7 @@
 .sendDiv {
     width: 800px;
     height: 34px;
-    border: 1px solid black;
+    border: 0px solid black;
     border-top: 0px;
     margin: 0 auto;
     vertical-align: middle;
@@ -36,7 +37,7 @@
 
 #inputMsg {
     display: flex;
-    width: 730px;
+    width: 700px;
     height: 30px;
     float: left;
     border: 0px;
@@ -48,6 +49,6 @@
     width: 66px;
     height: 34px;
     float: left;
-    background-color: #095bff;
+    background-color: #5cadff;
     padding-left: 14px;
 }
