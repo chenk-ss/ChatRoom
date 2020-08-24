@@ -24,7 +24,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<Message> query() {
-        Sort.Order order = Sort.Order.desc("createTime");
+        Sort.Order order = Sort.Order.asc("createTime");
         Sort sort = Sort.by(order);
         List<MessageBean> beanList = messageRepository.findAll(sort);
         return toEntity(beanList);

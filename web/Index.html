@@ -4,23 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <title>chat room</title>
-    <script src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/function.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+    <link rel="stylesheet" href="css/test.css">
 </head>
-<body style="width: 100%; height: 100%; margin: 0; padding: 0;">
-<div style="width: 500px; height: 1000px; margin: 0 auto; /*水平居中*/ position: relative; margin-top: 100px;">
-    <p style="font-size: 20px;">烤汤圆的公共聊天房</p>
+<!--<body style="width: 100%; height: 100%; margin: 0; padding: 0;">-->
+<!--<div style="width: 500px; height: 1000px; margin: 0 auto; /*水平居中*/ position: relative; margin-top: 100px;">-->
+<!--    <p style="font-size: 20px;">烤汤圆的公共聊天房</p>-->
+<!--    <p id="onlineNum"></p>-->
+<!--    <a id="login" onclick="login()">登录</a>-->
+<!--    <br>-->
+<!--    <input type="text" id="sendMessage">-->
+<!--    <input type="button" value="发送" onclick="send()">-->
+<!--    <p id="main"/>-->
+<!--    <input type="button" value="查看历史记录" onclick="queryhistory()">-->
+<!--    <script>-->
+<!--    </script>-->
+<!--</div>-->
+<!--</body>-->
+<body style="text-align:center">
+<div id="wrapper" style="margin: 0 auto;">
+    <p style="font-size: 20px;">chat &nbsp;&nbsp;&nbsp;&nbsp;<a style="font-size: 5px" @click="login()">登录</a></p>
     <p id="onlineNum"></p>
-    <a id="login" onclick="login()">登录</a>
-    <br>
-    <input type="text" id="sendMessage">
-    <input type="button" value="发送" onclick="send()">
-    <p id="main"/>
-    <input type="button" value="查看历史记录" onclick="queryhistory()">
-    <script>
-    </script>
+
+    <div id="test1" class="leftDiv">
+        <!--        <ul>-->
+        <!--            <li v-for="(item,index) in mylist">-->
+        <!--                {{index}}-->
+        <!--            </li>-->
+        <!--        </ul>-->
+    </div>
+    <div class="midDiv">
+        <div id="messages" class="messageDiv">
+            <p v-for="(item,index) in msgs" style="display: flex;">
+                <a>{{item.userName}}</a>
+                <a style="float: left"><br><br>{{item.message}}</a>
+            </p>
+        </div>
+        <div id="div3" class="sendDiv">
+            <textarea id="inputMsg" placeholder="message" v-model="submitMessage"></textarea>
+            <input class="submit" type="button" @click="send()" value="submit">
+        </div>
+    </div>
 </div>
+<script src="js/jquery.js"></script>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script type="text/javascript" src="js/function.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>

@@ -46,7 +46,7 @@ public class MessageController {
 
     @ResponseBody
     @RequestMapping(value = "/send")
-    public JsonResult<String> sendMessage(@RequestParam("message") String message, @RequestParam("friendId") String friendId) {
+    public JsonResult<String> sendMessage(@RequestParam("message") String message, @RequestParam("friendId") String friendName) {
         JsonResult<String> result = new JsonResult<>();
         MessageBean bean = new MessageBean();
         bean.setId(UUID.randomUUID().toString());
@@ -56,7 +56,7 @@ public class MessageController {
         messageService.add(bean);
         try {
 //            WebSocketServer.sendInfo(GSON.toJson(bean), "1");
-            WebSocketServer.sendInfo(GSON.toJson(bean), friendId);
+            WebSocketServer.sendInfo(GSON.toJson(bean), friendName);
             result.setMessage("发送成功");
             result.setSuccess(true);
         } catch (IOException e) {
@@ -69,7 +69,7 @@ public class MessageController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/send")
+    @RequestMapping(value = "/send/group")
     public JsonResult<String> sendMessageToGroup(@RequestParam("message") String message, @RequestParam("groupId") String groupId) {
 
         return null;

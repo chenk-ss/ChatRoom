@@ -22,20 +22,22 @@ function register(data) {
     };
     postAjax(API() + '/query/history', JSON.stringify(dataRead), function (ret, err) {
         if (ret && ret.success === true) {
-    $.ajax({
-        async: false,
-        type: 'post',
-        url: API() + '/user/register',
-        data: {
-            userName: username,
-            password: SHA256(password)
-        },
-        success: function (data) {
-            if (!data.success) {
-                alert(data.message);
-            } else {
-                window.location.href = 'Login.html';
-            }
+            $.ajax({
+                async: false,
+                type: 'post',
+                url: API() + '/user/register',
+                data: {
+                    userName: username,
+                    password: SHA256(password)
+                },
+                success: function (data) {
+                    if (!data.success) {
+                        alert(data.message);
+                    } else {
+                        window.location.href = 'Login.html';
+                    }
+                }
+            })
         }
     })
 }

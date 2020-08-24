@@ -14,6 +14,7 @@ function login(data) {
                 alert(data.message);
             } else {
                 sessionStorage.setItem('token', data.data);
+                sessionStorage.setItem('username', username);
                 console.log(sessionStorage.getItem('token'));
                 window.location.href = "Index.html";
             }
